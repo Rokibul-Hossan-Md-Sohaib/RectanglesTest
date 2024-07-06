@@ -1,11 +1,12 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import Rectangle from './src/components/Rectangle';
+import InshortTabs from './Components/InshortTabs';
+
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Rectangle />
+      <InshortTabs/>
     </SafeAreaView>
   );
 };
@@ -13,9 +14,6 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
 });
 
