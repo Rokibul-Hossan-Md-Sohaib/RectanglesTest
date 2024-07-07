@@ -14,8 +14,10 @@
     "react": "18.2.0",
     "react-native": "0.74.1",
     "react-native-pager-view": "^6.3.3",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^15.3.0",
     "react-native-tab-view": "^3.5.2",
+    "react-native-vector-icons": "^10.1.0",
     "tailwind-rn": "^4.2.0"
   },
   "devDependencies": {

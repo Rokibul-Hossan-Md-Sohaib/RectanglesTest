@@ -1,20 +1,31 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import InshortTabs from './Components/InshortTabs';
+import { StyleSheet, Text, View, StatusBar } from 'react-native'
+import React, { useContext } from 'react'
 
+import InshortTabs from './Components/InshortTabs'
+import Context, { NewsContext } from './others/Context'
 
-const App = () => {
+function App() {
+  const { darkTheme } = useContext(NewsContext)
   return (
-    <SafeAreaView style={styles.container}>
-      <InshortTabs/>
-    </SafeAreaView>
-  );
-};
+    <View style={{
+      ...styles.container,
+      backgroundColor: darkTheme ? "#282C35" : "white",
+    }}>
+      <InshortTabs />
+    </View>
+  )
+}
+
+export default () => {
+  return (<Context>
+    <App />
+  </Context>)
+}
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-  },
-});
-
-export default App;
+    marginTop: StatusBar.currentHeight
+  }
+})
