@@ -11,7 +11,7 @@ import { NewsContext } from '../others/Context';
 
 const InshortTabs = () => {
   const layout = useWindowDimensions();
-  // const [index, setIndex] = useState(0);
+  // const [index, setIndex] = useState(1);
   const { index, setIndex } = useContext(NewsContext);
 
   const [routes] = useState([
@@ -40,12 +40,12 @@ const InshortTabs = () => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  // },
-  // scene: {
-  //   flex: 1,
-  // },
+  container: {
+    flex: 1,
+  },
+  scene: {
+    flex: 1,
+  },
 });
 
 export default InshortTabs;
