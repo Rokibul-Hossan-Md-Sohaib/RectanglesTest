@@ -4,14 +4,14 @@ import { NewsContext } from '../others/Context';
 import { categories } from '../others/api';
 
 const windowWidth = Dimensions.get('window').width;
-const SLIDE_WIDTH = Math.round(windowWidth * 0.55);
+const SLIDE_WIDTH = Math.round(windowWidth * 0.25);
 
 const DiscoverScreen = () => {
   const { setCategory, darkTheme } = useContext(NewsContext);
 
   return (
     <View style={styles.container}>
-      <Text style={{ ...styles.subtitle, color: "white" }}>Categories</Text>
+      <Text style={{ ...styles.subtitle, color: "black" }}>Where stories unfold , Your getway to the world </Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         {categories.map((item) => (
           <TouchableOpacity
@@ -20,7 +20,7 @@ const DiscoverScreen = () => {
             onPress={() => setCategory(item.name)}
           >
             <Image source={{ uri: item.pic }} style={styles.categoryImage} />
-            <Text style={{ ...styles.name, color: darkTheme ? "white" : "black" }}>{item.name}</Text>
+            <Text style={{ ...styles.name, color: darkTheme ? "black" : "white" }}>{item.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -31,12 +31,12 @@ const DiscoverScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#0000',
     justifyContent: 'center',
     alignItems: 'center',
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 40,
     fontWeight: "bold",
     paddingBottom: 8,
     color: "white",
@@ -52,12 +52,12 @@ const styles = StyleSheet.create({
     color: "white",
   },
   category: {
-    height: 130,
+    height: 100,
     width: SLIDE_WIDTH,
     margin: 10,
     alignItems: "center",
     justifyContent: "space-evenly",
-    backgroundColor: '#333',
+    backgroundColor: '#C0C0C0',
     borderRadius: 10,
   },
   scrollView: {

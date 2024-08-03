@@ -4,6 +4,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
 const TopNavigation = ({ index, setIndex }) => {
     return (
         <View style={styles.container}>
@@ -13,13 +14,12 @@ const TopNavigation = ({ index, setIndex }) => {
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity style={styles.left} onPress={() => setIndex(index === 0 ? 1 : 0)}>
-                   
                     <SimpleLineIcons name='arrow-left' size={15} color="#007FFF" />
-                    <Text style={styles.text}> Discover</Text>
+                    <Text style={styles.text}>Discover</Text>
                 </TouchableOpacity>
             )}
 
-            <Text style={styles.center}>
+            <Text style={[styles.text, styles.center]}>
                 {index ? "All News" : "Discover"}
             </Text>
 
@@ -29,7 +29,7 @@ const TopNavigation = ({ index, setIndex }) => {
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity style={styles.left} onPress={() => setIndex(index === 0 ? 1 : 0)}>
-                    <Text style={styles.text}> All News</Text>
+                    <Text style={styles.text}>All News</Text>
                     <SimpleLineIcons name='arrow-right' size={15} color="#007FFF" />
                 </TouchableOpacity>
             )}
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderBottomColor: "black",
         borderBottomWidth: 0.5,
-        backgroundColor: "#282C35"
+        backgroundColor: "white"
     },
     left: {
         flexDirection: "row",
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 16,
-        color: "white"
+        color: "black"
     },
     right: {
         width: 80,
@@ -67,8 +67,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 5,
         borderRadius: 10,
         fontSize: 16,
-        fontWeight: "700",
-        color: "white"
+        fontWeight: "700"
     }
 });
 
