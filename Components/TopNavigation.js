@@ -10,7 +10,7 @@ const TopNavigation = ({ index, setIndex }) => {
         <View style={styles.container}>
             {index === 0 ? (
                 <TouchableOpacity style={styles.left}>
-                    <MaterialCommunityIcons name="theme-light-dark" size={24} color="#007FFF" />
+                    {/* <MaterialCommunityIcons name="theme-light-dark" size={24} color="#007FFF" /> */}
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity style={styles.left} onPress={() => setIndex(index === 0 ? 1 : 0)}>
@@ -24,7 +24,7 @@ const TopNavigation = ({ index, setIndex }) => {
             </Text>
 
             {index ? (
-                <TouchableOpacity style={styles.right} onPress={() => fetchNews("general")}>
+                <TouchableOpacity style={styles.right} onPress={console.log("text")}>
                     <AntDesign name="reload1" size={24} color="#007FFF" />
                 </TouchableOpacity>
             ) : (

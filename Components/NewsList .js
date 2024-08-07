@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, Linking, Modal, TextInput, FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useState, useContext, useRef } from 'react';
+import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, Linking, Modal, TextInput, FlatList, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, PanResponder } from 'react-native';
 import { NewsContext } from '../others/Context';
 import NewsInteractions from './NewsInteractions';
 
@@ -8,10 +8,25 @@ const windowHeight = Dimensions.get('window').height;
 
 const SingleNews = ({ item }) => {
     const { darkTheme } = useContext(NewsContext);
-
     const [comments, setComments] = useState([]);
     const [commentInput, setCommentInput] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+
+    const panResponder = useRef(
+        PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onMoveShouldSetPanResponder: () => true,
+            onPanResponderMove: (event, gestureState) => {
+                // Detect right-to-left swipe
+                if (gestureState.dx < -50) {
+                    navigateToArticle();
+                }
+            },
+            onPanResponderRelease: () => {},
+        })
+    ).current;
+    
+    
 
     const handleComment = () => {
         setModalVisible(true);
@@ -27,11 +42,18 @@ const SingleNews = ({ item }) => {
             setCommentInput('');
         }
     };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    };
+    
 
     return (
+        <View {...panResponder.panHandlers}>
         <TouchableOpacity onPress={navigateToArticle} style={styles.container}>
             <Image
-                source={{ uri: item.image || 'https://images.prothomalo.com/prothomalo-bangla%2F2024-08%2F6d890139-2023-48d0-8225-ace32ef4e10d%2Fprotest%201.jpg?auto=format%2Ccompress&fmt=webp&format=webp&w=360&dpr=2.0' }}
+                source={{ uri: item?.image || 'https://images.prothomalo.com/prothomalo-bangla%2F2024-08%2F6d890139-2023-48d0-8225-ace32ef4e10d%2Fprotest%201.jpg?auto=format%2Ccompress&fmt=webp&format=webp&w=360&dpr=2.0' }}
                 style={styles.image}
             />
             <View style={styles.contentContainer}>
@@ -39,19 +61,34 @@ const SingleNews = ({ item }) => {
                     <Text style={styles.title}>
                         {item.headline_bn || item.headline_en}
                     </Text>
-                    <Text style={styles.content} numberOfLines={4} ellipsizeMode="tail">
+                    <View style={styles.sourceContainer}>
+    <Text style={styles.sourceText}>
+        {item.news_source?.name_en || "unknown"}
+    </Text>
+    <Text style={styles.timeText}>
+        {formatDate(item?.time) || "unknown"}
+    </Text>
+</View>
+
+
+                    <View style={styles.comment}>
+                                 
+                                        </View>
+                    <Text style={styles.content} numberOfLines={6} ellipsizeMode="tail">
     {item.summary_bn || item.summary_en}
 </Text>
 
-                    <Text>
+                    {/* <Text>
                         Source:
                         <Text>{item.news_source?.name_en || "unknown"}</Text>
-                    </Text>
-                    <TouchableOpacity style={styles.readMoreButton} onPress={navigateToArticle}>
-                        <Text style={{ fontSize: 17, fontWeight: "bold", color: 'white' }}>Read More</Text>
+                    </Text> */}
+                    <TouchableOpacity onPress={navigateToArticle}>
+                        <Text  style={styles.sourceText}>
+                            Swipe left or click to read the full story >>
+                        </Text>
                     </TouchableOpacity>
                 </View>
-                <NewsInteractions comments={comments} handleComment={handleComment} />
+                <NewsInteractions comments={comments} handleComment={handleComment}  />
             </View>
 
             <Modal
@@ -92,6 +129,7 @@ const SingleNews = ({ item }) => {
                 </TouchableWithoutFeedback>
             </Modal>
         </TouchableOpacity>
+        </View>
     );
 };
 
@@ -126,6 +164,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingBottom: 10,
         color: 'black', // Set text color to black
+        marginTop: 10
     },
     readMoreButton: {
         backgroundColor: "#d7be69",
@@ -151,6 +190,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
         color: 'black', // Set text color to black
+    },
+    sourceContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingTop: 10,
+    },
+    sourceText: {
+     
+        fontWeight: 'bold',
+    },
+    timeText: {
+        color: 'gray', // Adjust color as needed
     },
     commentsList: {
         flex: 1,

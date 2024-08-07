@@ -11,7 +11,9 @@ const DiscoverScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ ...styles.subtitle, color: "black" }}>Where stories unfold , Your getway to the world </Text>
+     <View style={styles.textContainer}>
+     <Text style={{ ...styles.subtitle, color: "black" }}>Where stories unfold , Your getway to the world </Text>
+     </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         {categories.map((item) => (
           <TouchableOpacity
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subtitle: {
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "bold",
     paddingBottom: 8,
     color: "white",
@@ -63,6 +65,11 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingHorizontal: 10,
   },
+  textContainer: {
+    paddingHorizontal: 10, // Adds horizontal padding to the View
+    paddingVertical: 10,   // Adds vertical padding to the View
+    marginHorizontal: 10,  // Adds horizontal margin to the View
+},
 });
 
 export default DiscoverScreen;
